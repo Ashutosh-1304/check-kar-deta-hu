@@ -47,11 +47,18 @@ def validate_document(req: ValidateRequest, db: Session = Depends(get_db)):
     rule_schema = DocumentRuleTemplate(**rule_tpl.rule_config)
     
     # 4. Validate
-    pipeline = ValidationPipeline([
+    from app.plugins.manager import PluginManager
+    plugin_manager = PluginManager()
+    plugin_manager.discover_and_load()
+    
+    validators = [
         MarginValidator(),
         FontValidator(),
         HeadingValidator()
-    ])
+    ]
+    validators.extend(plugin_manager.get_plugin_instances())
+    
+    pipeline = ValidationPipeline(validators)
     
     report_data = pipeline.evaluate(doc_model, rule_schema)
     
