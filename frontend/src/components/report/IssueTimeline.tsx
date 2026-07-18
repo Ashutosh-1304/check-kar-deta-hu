@@ -66,22 +66,22 @@ export function IssueTimeline({ issues }: IssueTimelineProps) {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-start mb-1">
-                        <h4 className="font-semibold text-sm truncate uppercase tracking-wider">{issue.category}</h4>
-                        <span className="text-xs font-mono bg-background px-2 py-1 rounded border">Page {issue.page}</span>
+                        <h4 className="font-semibold text-sm truncate uppercase tracking-wider">{issue.element_type || issue.category}</h4>
+                        <span className="text-xs font-mono bg-background px-2 py-1 rounded border">Page {issue.page || 1}</span>
                       </div>
                       <div className="grid md:grid-cols-2 gap-4 text-sm mt-2">
                         <div>
                           <span className="text-muted-foreground text-xs uppercase block">Expected</span>
-                          <span className="font-medium">{issue.expected || 'N/A'}</span>
+                          <span className="font-medium">{issue.expected_value || issue.expected || 'N/A'}</span>
                         </div>
                         <div>
                           <span className="text-muted-foreground text-xs uppercase block">Actual</span>
-                          <span className="font-medium">{issue.actual || 'N/A'}</span>
+                          <span className="font-medium">{issue.actual_value || issue.actual || 'N/A'}</span>
                         </div>
                       </div>
-                      {issue.suggestion && (
+                      {(issue.message || issue.suggestion) && (
                         <div className="mt-3 text-xs bg-background/50 p-2 rounded inline-block text-muted-foreground">
-                          💡 Suggestion: {issue.suggestion}
+                          💡 Suggestion: {issue.message || issue.suggestion}
                         </div>
                       )}
                     </div>
