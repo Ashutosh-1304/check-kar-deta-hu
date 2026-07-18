@@ -77,19 +77,19 @@ export function RuleEditor() {
                   <h3 className="font-semibold text-sm">Margins (inches)</h3>
                   <div>
                     <Label>Top</Label>
-                    <Input type="number" step="0.1" {...register('margins.top')} />
+                    <Input type="number" step="0.1" {...register('margins.top', { valueAsNumber: true })} />
                   </div>
                   <div>
                     <Label>Bottom</Label>
-                    <Input type="number" step="0.1" {...register('margins.bottom')} />
+                    <Input type="number" step="0.1" {...register('margins.bottom', { valueAsNumber: true })} />
                   </div>
                   <div>
                     <Label>Left</Label>
-                    <Input type="number" step="0.1" {...register('margins.left')} />
+                    <Input type="number" step="0.1" {...register('margins.left', { valueAsNumber: true })} />
                   </div>
                   <div>
                     <Label>Right</Label>
-                    <Input type="number" step="0.1" {...register('margins.right')} />
+                    <Input type="number" step="0.1" {...register('margins.right', { valueAsNumber: true })} />
                   </div>
                 </div>
 
@@ -101,7 +101,7 @@ export function RuleEditor() {
                   </div>
                   <div>
                     <Label>Font Size (pt)</Label>
-                    <Input type="number" {...register('font.size')} />
+                    <Input type="number" {...register('font.size', { valueAsNumber: true })} />
                   </div>
                 </div>
               </div>
