@@ -22,7 +22,10 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      - DATABASE_URL=postgresql://user:password@db/compliance_db
+      - POSTGRES_SERVER=db
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=compliance_db
       - ENVIRONMENT=production
     depends_on:
       db:
