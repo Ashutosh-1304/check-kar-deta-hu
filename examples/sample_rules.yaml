@@ -1,0 +1,29 @@
+name: "Standard Corporate Policy"
+description: "Rules for standard corporate compliance documents"
+
+margins:
+  top: 1.0
+  bottom: 1.0
+  left: 1.25
+  right: 1.25
+  tolerance: 0.05
+
+body_font:
+  allowed_families: 
+    - "Arial"
+    - "Calibri"
+    - "Times New Roman"
+  min_size: 10.0
+  max_size: 12.0
+
+headings:
+  - level: 1
+    font:
+      allowed_families: ["Arial"]
+      exact_size: 16.0
+    alignment: "CENTER"
+  
+  - level: 2
+    font:
+      allowed_families: ["Arial"]
+      exact_size: 14.0
