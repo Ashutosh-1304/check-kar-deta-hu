@@ -46,9 +46,10 @@ def test_auth_login():
     assert "access_token" in response.json()
 
 def test_full_validation_workflow():
-    # 1. Create a rule
+    import uuid
+    unique_name = f"API Test Rule {uuid.uuid4()}"
     rule_payload = {
-        "name": "API Test Rule",
+        "name": unique_name,
         "description": "Rule for testing API",
         "margins": {
             "top": 1.0,
