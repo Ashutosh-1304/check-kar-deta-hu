@@ -38,8 +38,45 @@ The project is strictly organized to maintain separation of concerns. The primar
 3. Phase 9: Testing, hardening, and CI/CD pipelines.
 4. Phase 10: Scalability, enterprise features, and readiness for future plugins.
 
-## Setup (Planned)
-*Note: Setup instructions will be provided once Phase 2 is fully implemented. The project will rely on Docker Compose for localized deployment.*
+## Setup Instructions
+The backend is fully operational and containerized for localized testing and deployment.
+
+### Prerequisites
+- Docker & Docker Compose
+- Python 3.12 (for local development outside of Docker)
+
+### Running with Docker Compose (Recommended)
+1. Ensure the Docker daemon is running.
+2. In the root directory, run the following command to spin up the PostgreSQL database and the FastAPI backend:
+   ```bash
+   docker-compose up -d --build
+   ```
+3. The API will be accessible at: `http://localhost:8000/api/v1`
+4. Interactive Swagger documentation will be available at: `http://localhost:8000/docs`
+
+### Local Development Setup
+1. Navigate to the `backend/` directory:
+   ```bash
+   cd backend
+   ```
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # Or `.\venv\Scripts\Activate` on Windows
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Start a local PostgreSQL instance (or use the Docker Compose `db` service).
+5. Apply database migrations:
+   ```bash
+   alembic upgrade head
+   ```
+6. Run the FastAPI development server:
+   ```bash
+   uvicorn app.main:app --reload
+   ```
 
 ## Development Workflow
 Development is strictly divided into 10 sequential phases. **No phase may begin until the preceding phase is fully completed and tested.** 
