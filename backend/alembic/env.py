@@ -21,6 +21,9 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from app.core.config import settings
 from app.db.models.base import Base
 
+from app.db.models.rule_template import RuleTemplate
+from app.db.models.document import UploadedDocument, ValidationReport
+
 # add your model's MetaData object here
 target_metadata = Base.metadata
 
