@@ -1,2 +1,5 @@
 prompt.md
 rules.md
+backend/venv/
+backend/__pycache__/
+
