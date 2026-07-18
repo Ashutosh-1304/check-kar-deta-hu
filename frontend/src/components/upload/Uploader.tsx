@@ -42,9 +42,8 @@ export function Uploader() {
         ruleTemplateId: parseInt(selectedRuleId),
       });
 
-      // Redirect to report view (to be built in phase 8)
-      // For now, we will just push to a generic processing view
-      alert('Validation started! Report ID: ' + validateRes.report_id);
+      // Redirect to report view
+      router.push(`/report/${validateRes.report_id}`);
     } catch (error) {
       console.error(error);
     }
