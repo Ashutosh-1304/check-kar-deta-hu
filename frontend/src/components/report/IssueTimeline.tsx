@@ -67,11 +67,16 @@ export function IssueTimeline({ issues }: IssueTimelineProps) {
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-start mb-1">
                         <h4 className="font-semibold text-sm truncate uppercase tracking-wider">{issue.element_type || issue.category}</h4>
-                        {issue.paragraph_index ? (
-                          <span className="text-xs font-mono bg-background px-2 py-1 rounded border">Para {issue.paragraph_index}</span>
-                        ) : (
-                          <span className="text-xs font-mono bg-background px-2 py-1 rounded border">Section 1</span>
-                        )}
+                        <div className="flex gap-2">
+                          {issue.page_number && (
+                            <span className="text-xs font-mono bg-blue-500/10 text-blue-600 px-2 py-1 rounded border border-blue-200">Page {issue.page_number}</span>
+                          )}
+                          {issue.paragraph_index ? (
+                            <span className="text-xs font-mono bg-background px-2 py-1 rounded border">Para {issue.paragraph_index}</span>
+                          ) : (
+                            <span className="text-xs font-mono bg-background px-2 py-1 rounded border">Global</span>
+                          )}
+                        </div>
                       </div>
                       
                       {issue.context_text && (

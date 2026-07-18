@@ -32,7 +32,8 @@ class HeadingValidator(BaseValidator):
                                 actual_value=str(para.alignment),
                                 message=f"Heading level {para.level} has incorrect alignment.",
                                 paragraph_index=para.paragraph_index,
-                                context_text=context
+                                page_number=para.page_number,
+                                context_text=para.text[:60] + '...' if len(para.text) > 60 else para.text
                             ))
                             
                     # Check Font
@@ -41,6 +42,12 @@ class HeadingValidator(BaseValidator):
                         exact_size = h_rule.font.exact_size
                         
                         for run in para.runs:
+                            context = run.text.strip()
+                            if not context:
+                                continue
+                            if len(context) > 60:
+                                context = context[:60] + '...'
+
                             if allowed_fams:
                                 result.passed_checks += 1
                                 if run.font_family not in allowed_fams:
@@ -52,6 +59,7 @@ class HeadingValidator(BaseValidator):
                                         actual_value=str(run.font_family),
                                         message=f"Heading level {para.level} has invalid font family.",
                                         paragraph_index=para.paragraph_index,
+                                        page_number=para.page_number,
                                         context_text=context
                                     ))
                             
@@ -66,6 +74,7 @@ class HeadingValidator(BaseValidator):
                                         actual_value=str(run.font_size),
                                         message=f"Heading level {para.level} has invalid font size.",
                                         paragraph_index=para.paragraph_index,
+                                        page_number=para.page_number,
                                         context_text=context
                                     ))
                                     

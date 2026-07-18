@@ -20,7 +20,12 @@ class FontValidator(BaseValidator):
                     continue
                 
                 for run_idx, run in enumerate(para.runs):
-                    context = para.text[:50] + '...' if len(para.text) > 50 else para.text
+                    # We want the exact text span that caused the issue, not just the start of the para
+                    context = run.text.strip()
+                    if not context:
+                        continue
+                    if len(context) > 60:
+                        context = context[:60] + '...'
                     
                     # Check Family
                     if allowed_families:
@@ -32,8 +37,9 @@ class FontValidator(BaseValidator):
                                 element_type="FontFamily",
                                 expected_value=f"One of {allowed_families}",
                                 actual_value=str(run.font_family),
-                                message=f"Invalid font family in Section {sec_idx+1}, Paragraph {para.paragraph_index}.",
+                                message=f"Invalid font family on Page {para.page_number or 1}, Paragraph {para.paragraph_index}.",
                                 paragraph_index=para.paragraph_index,
+                                page_number=para.page_number,
                                 context_text=context
                             ))
                     
@@ -53,8 +59,9 @@ class FontValidator(BaseValidator):
                                 element_type="FontSize",
                                 expected_value=f"Between {min_size} and {max_size}",
                                 actual_value=str(run.font_size),
-                                message=f"Invalid font size in Section {sec_idx+1}, Paragraph {para.paragraph_index}.",
+                                message=f"Invalid font size on Page {para.page_number or 1}, Paragraph {para.paragraph_index}.",
                                 paragraph_index=para.paragraph_index,
+                                page_number=para.page_number,
                                 context_text=context
                             ))
                             

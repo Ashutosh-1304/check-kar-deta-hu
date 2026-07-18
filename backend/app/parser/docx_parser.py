@@ -51,7 +51,12 @@ class DocxParser(BaseParser):
         primary_section = sections_models[0]
         
         # 3. Extract Paragraphs & Headings
+        current_page = 1
         for i, para in enumerate(doc.paragraphs):
+            # MS Word inserts this tag dynamically when rendering pages
+            if '<w:lastRenderedPageBreak' in para._p.xml:
+                current_page += 1
+                
             runs_models = []
             for run in para.runs:
                 font = run.font
@@ -98,7 +103,8 @@ class DocxParser(BaseParser):
                     first_line_indent=first_line_indent,
                     space_after=space_after,
                     level=level,
-                    paragraph_index=i + 1
+                    paragraph_index=i + 1,
+                    page_number=current_page
                 ))
             else:
                 primary_section.paragraphs.append(ParagraphModel(
@@ -108,7 +114,8 @@ class DocxParser(BaseParser):
                     alignment=alignment,
                     first_line_indent=first_line_indent,
                     space_after=space_after,
-                    paragraph_index=i + 1
+                    paragraph_index=i + 1,
+                    page_number=current_page
                 ))
                 
         # 4. Extract Tables

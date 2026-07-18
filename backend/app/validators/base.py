@@ -11,6 +11,7 @@ class ValidationIssue(BaseModel):
     message: str
     severity: str = "ERROR" # e.g. ERROR, WARNING
     paragraph_index: Optional[int] = None
+    page_number: Optional[int] = None
     context_text: Optional[str] = None
 
 class ValidationResult(BaseModel):
