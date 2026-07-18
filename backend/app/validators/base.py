@@ -10,6 +10,8 @@ class ValidationIssue(BaseModel):
     actual_value: str
     message: str
     severity: str = "ERROR" # e.g. ERROR, WARNING
+    paragraph_index: Optional[int] = None
+    context_text: Optional[str] = None
 
 class ValidationResult(BaseModel):
     passed_checks: int = 0

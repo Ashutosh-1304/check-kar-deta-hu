@@ -20,6 +20,8 @@ class FontValidator(BaseValidator):
                     continue
                 
                 for run_idx, run in enumerate(para.runs):
+                    context = para.text[:50] + '...' if len(para.text) > 50 else para.text
+                    
                     # Check Family
                     if allowed_families:
                         result.passed_checks += 1
@@ -30,7 +32,9 @@ class FontValidator(BaseValidator):
                                 element_type="FontFamily",
                                 expected_value=f"One of {allowed_families}",
                                 actual_value=str(run.font_family),
-                                message=f"Invalid font family in Section {sec_idx+1}, Paragraph {para_idx+1}."
+                                message=f"Invalid font family in Section {sec_idx+1}, Paragraph {para.paragraph_index}.",
+                                paragraph_index=para.paragraph_index,
+                                context_text=context
                             ))
                     
                     # Check Size
@@ -49,7 +53,9 @@ class FontValidator(BaseValidator):
                                 element_type="FontSize",
                                 expected_value=f"Between {min_size} and {max_size}",
                                 actual_value=str(run.font_size),
-                                message=f"Invalid font size in Section {sec_idx+1}, Paragraph {para_idx+1}."
+                                message=f"Invalid font size in Section {sec_idx+1}, Paragraph {para.paragraph_index}.",
+                                paragraph_index=para.paragraph_index,
+                                context_text=context
                             ))
                             
         return result

@@ -17,6 +17,7 @@ class ParagraphModel(BaseModel):
     alignment: Optional[str] = None
     first_line_indent: Optional[float] = None
     space_after: Optional[float] = None
+    paragraph_index: Optional[int] = None
 
 class HeadingModel(ParagraphModel):
     level: int

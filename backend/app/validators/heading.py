@@ -18,6 +18,8 @@ class HeadingValidator(BaseValidator):
                     if not h_rule:
                         continue # No specific rule for this heading level
                     
+                    context = para.text[:50] + '...' if len(para.text) > 50 else para.text
+                    
                     # Check Alignment
                     if h_rule.alignment:
                         result.passed_checks += 1
@@ -28,7 +30,9 @@ class HeadingValidator(BaseValidator):
                                 element_type="HeadingAlignment",
                                 expected_value=h_rule.alignment,
                                 actual_value=str(para.alignment),
-                                message=f"Heading level {para.level} has incorrect alignment."
+                                message=f"Heading level {para.level} has incorrect alignment.",
+                                paragraph_index=para.paragraph_index,
+                                context_text=context
                             ))
                             
                     # Check Font
@@ -46,7 +50,9 @@ class HeadingValidator(BaseValidator):
                                         element_type="HeadingFontFamily",
                                         expected_value=f"One of {allowed_fams}",
                                         actual_value=str(run.font_family),
-                                        message=f"Heading level {para.level} has invalid font family."
+                                        message=f"Heading level {para.level} has invalid font family.",
+                                        paragraph_index=para.paragraph_index,
+                                        context_text=context
                                     ))
                             
                             if exact_size is not None:
@@ -58,7 +64,9 @@ class HeadingValidator(BaseValidator):
                                         element_type="HeadingFontSize",
                                         expected_value=str(exact_size),
                                         actual_value=str(run.font_size),
-                                        message=f"Heading level {para.level} has invalid font size."
+                                        message=f"Heading level {para.level} has invalid font size.",
+                                        paragraph_index=para.paragraph_index,
+                                        context_text=context
                                     ))
                                     
         return result

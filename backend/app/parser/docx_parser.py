@@ -51,7 +51,7 @@ class DocxParser(BaseParser):
         primary_section = sections_models[0]
         
         # 3. Extract Paragraphs & Headings
-        for para in doc.paragraphs:
+        for i, para in enumerate(doc.paragraphs):
             runs_models = []
             for run in para.runs:
                 font = run.font
@@ -97,7 +97,8 @@ class DocxParser(BaseParser):
                     alignment=alignment,
                     first_line_indent=first_line_indent,
                     space_after=space_after,
-                    level=level
+                    level=level,
+                    paragraph_index=i + 1
                 ))
             else:
                 primary_section.paragraphs.append(ParagraphModel(
@@ -106,7 +107,8 @@ class DocxParser(BaseParser):
                     style=style_name,
                     alignment=alignment,
                     first_line_indent=first_line_indent,
-                    space_after=space_after
+                    space_after=space_after,
+                    paragraph_index=i + 1
                 ))
                 
         # 4. Extract Tables
